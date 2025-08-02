@@ -1,5 +1,3 @@
-bin/
-obj/
-/packages/
-riderModule.iml
-/_ReSharper.Caches/
+# Rider ve IntelliJ tabanlı IDE'ler için .idea klasörünü ignore et
+.idea/
+

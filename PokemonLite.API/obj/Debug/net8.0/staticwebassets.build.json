@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "j9heDD5RIF+h5qKQnewrsOzv2AoJnA456qn1sxJmaCs=",
+  "Source": "PokemonLite.API",
+  "BasePath": "_content/PokemonLite.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

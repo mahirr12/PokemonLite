@@ -1,21 +1,13 @@
 namespace PokemonLite.Domain.Entities;
 
-public class PassiveAbility(
-    int duration,
-    int ownHealthEffectiveness = 1,
-    int ownAttackEffectiveness = 1,
-    int ownDefenseEffectiveness = 1,
-    int opponentHealthEffectiveness = 1,
-    int opponentAttackEffectiveness = 1,
-    int opponentDefenseEffectiveness = 1
-)
+public class PassiveAbility
     : BaseAbility
 {
-    public int Duration { get; set; } = duration; // Duration in turns
+    public int Duration { get; set; }  // Duration in turns
 
-    public int[] OwnEffectiveness { get; } =
-        [ownHealthEffectiveness, ownAttackEffectiveness, ownDefenseEffectiveness];
+    public int[] OwnEffectiveness { get; set; } =new int[3]; // own effectiveness on (0: hp, 1: attack, 2: defense)
+        
 
-    public int[] OpponentEffectiveness { get; } =
-        [opponentHealthEffectiveness, opponentAttackEffectiveness, opponentDefenseEffectiveness];
+    public int[] OpponentEffectiveness { get; set; } = new int[3]; // opponent effectiveness on (0: hp, 1: attack, 2: defense)
+        
 }

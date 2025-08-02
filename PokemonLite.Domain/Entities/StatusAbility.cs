@@ -3,17 +3,12 @@ using PokemonLite.Domain.Enums;
 namespace PokemonLite.Domain.Entities;
 
 // Effectiveness of the status of Pokémon itself
-public class StatusAbility(
-    StatusAbilityType statusAbilityType,
-    int healthEffectiveness=1,
-    int attackEffectiveness=1,
-    int defenseEffectiveness=1)
+public class StatusAbility
     : BaseAbility
 {
-    public int[] StatusEffectiveness { get; } =
-        [healthEffectiveness, attackEffectiveness, defenseEffectiveness];
+    public int[] StatusEffectiveness { get; set; } =new int[3]; // effectiveness on (0: hp, 1: attack, 2: defense)
+        
 
 
-    public StatusAbilityType StatusAbilityType { get; } =
-        statusAbilityType;
+    public StatusAbilityType StatusAbilityType { get; set; } 
 }

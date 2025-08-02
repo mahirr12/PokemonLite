@@ -1,0 +1,13 @@
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Domain/bin/Debug/net8.0/PokemonLite.Domain.deps.json
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Domain/bin/Debug/net8.0/PokemonLite.Domain.dll
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Domain/bin/Debug/net8.0/PokemonLite.Domain.pdb
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Domain/obj/Debug/net8.0/PokemonLite.Domain.csproj.AssemblyReference.cache
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Domain/obj/Debug/net8.0/PokemonLite.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Domain/obj/Debug/net8.0/PokemonLite.Domain.AssemblyInfoInputs.cache
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Domain/obj/Debug/net8.0/PokemonLite.Domain.AssemblyInfo.cs
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Domain/obj/Debug/net8.0/PokemonLite.Domain.csproj.CoreCompileInputs.cache
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Domain/obj/Debug/net8.0/PokemonLite.Domain.sourcelink.json
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Domain/obj/Debug/net8.0/PokemonLite.Domain.dll
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Domain/obj/Debug/net8.0/refint/PokemonLite.Domain.dll
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Domain/obj/Debug/net8.0/PokemonLite.Domain.pdb
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Domain/obj/Debug/net8.0/ref/PokemonLite.Domain.dll

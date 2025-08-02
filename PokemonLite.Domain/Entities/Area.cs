@@ -7,9 +7,11 @@ public class Area : BaseEntity
 
 
     // Navigation properties
-    public ICollection<Pokemon> Pokemons { get; set; } = [];
+    
     public ICollection<Trainer> Trainers { get; set; } = [];
     public ICollection<Gym> Gyms { get; set; } = [];
     public ICollection<Trainer> Elite4 { get; set; } = [];
-    public Trainer? Champions { get; set; }
+    
+    public Guid ChampionId { get; set; }
+    public Trainer? Champion { get; set; }
 }

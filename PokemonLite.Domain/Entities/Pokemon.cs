@@ -8,8 +8,6 @@ public class Pokemon : BaseEntity
     public double BaseHp { get; set; }
     public int BaseAttack { get; set; }
     public int BaseDefense { get; set; }
-    public int BaseAttackSpeed { get; set; }
-    public int BaseDefenseSpeed { get; set; }
     
     public ICollection<TrainerPokemon> TrainerPokemons { get; set; } = [];
 }

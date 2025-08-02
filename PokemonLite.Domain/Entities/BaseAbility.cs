@@ -8,6 +8,7 @@ public abstract class BaseAbility : BaseEntity
     public Specie Specie { get; set; } = null!;
     public int Difficulty { get; set; } = 1;
     
-    public Dictionary<Guid, int> PokemonLevels { get; set; } = new();
+    //public IDictionary<Guid, int> PokemonLevels { get; set; } 
+    public ICollection<AbilityLevels> AbilityLevels { get; set; } = [];
     
 }
