@@ -1,0 +1,16 @@
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Contract/obj/Debug/net8.0/PokemonLite.Contract.csproj.AssemblyReference.cache
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Contract/obj/Debug/net8.0/PokemonLite.Contract.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Contract/obj/Debug/net8.0/PokemonLite.Contract.AssemblyInfoInputs.cache
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Contract/obj/Debug/net8.0/PokemonLite.Contract.AssemblyInfo.cs
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Contract/obj/Debug/net8.0/PokemonLite.Contract.csproj.CoreCompileInputs.cache
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Contract/obj/Debug/net8.0/PokemonLite.Contract.sourcelink.json
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Contract/bin/Debug/net8.0/PokemonLite.Contract.deps.json
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Contract/bin/Debug/net8.0/PokemonLite.Contract.dll
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Contract/bin/Debug/net8.0/PokemonLite.Contract.pdb
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Contract/bin/Debug/net8.0/PokemonLite.Domain.dll
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Contract/bin/Debug/net8.0/PokemonLite.Domain.pdb
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Contract/obj/Debug/net8.0/PokemonL.A1D0B36E.Up2Date
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Contract/obj/Debug/net8.0/PokemonLite.Contract.dll
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Contract/obj/Debug/net8.0/refint/PokemonLite.Contract.dll
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Contract/obj/Debug/net8.0/PokemonLite.Contract.pdb
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.Contract/obj/Debug/net8.0/ref/PokemonLite.Contract.dll

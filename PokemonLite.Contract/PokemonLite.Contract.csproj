@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\PokemonLite.Domain\PokemonLite.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

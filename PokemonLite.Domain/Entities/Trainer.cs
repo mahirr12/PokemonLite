@@ -1,3 +1,4 @@
+using PokemonLite.Domain.Contracts;
 using PokemonLite.Domain.Enums;
 
 namespace PokemonLite.Domain.Entities;
@@ -12,8 +13,10 @@ public class Trainer : BaseEntity
     public ICollection<TrainerPokemon> TrainerPokemons { get; set; } = [];
 
     public string? UserId { get; set; }
-    public User? User { get; set; }
+    public IUser? User { get; set; }
 
+    public ICollection<Battle> CreatedBattles { get; set; }=[];
+    public ICollection<Battle> JoinedBattles { get; set; }=[];
     // public Guid AreaId { get; set; }
     //public Area Area { get; set; }
 }

@@ -22,6 +22,21 @@ namespace PokemonLite.Persistance.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("BaseAbilityTrainerPokemon", b =>
+                {
+                    b.Property<Guid>("AbilitiesId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("PokemonsId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("AbilitiesId", "PokemonsId");
+
+                    b.HasIndex("PokemonsId");
+
+                    b.ToTable("BaseAbilityTrainerPokemon");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -154,7 +169,7 @@ namespace PokemonLite.Persistance.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("PokemonLite.Domain.Entities.AbilityLevels", b =>
+            modelBuilder.Entity("PokemonLite.Domain.Entities.AbilityLevel", b =>
                 {
                     b.Property<Guid>("PokemonId")
                         .HasColumnType("uuid");
@@ -187,11 +202,6 @@ namespace PokemonLite.Persistance.Migrations
                     b.Property<int>("Difficulty")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(21)
-                        .HasColumnType("character varying(21)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
@@ -202,9 +212,6 @@ namespace PokemonLite.Persistance.Migrations
                     b.Property<Guid>("SpecieId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("TrainerPokemonId")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -212,13 +219,57 @@ namespace PokemonLite.Persistance.Migrations
 
                     b.HasIndex("SpecieId");
 
+                    b.ToTable("BaseAbilities", (string)null);
+
+                    b.UseTptMappingStrategy();
+                });
+
+            modelBuilder.Entity("PokemonLite.Domain.Entities.Battle", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatorId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid?>("JoinerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("JoinerId");
+
+                    b.ToTable("Battles");
+                });
+
+            modelBuilder.Entity("PokemonLite.Domain.Entities.BattleTrainerPokemon", b =>
+                {
+                    b.Property<Guid>("BattleId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("TrainerPokemonId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsCreatorPokemon")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("BattleId", "TrainerPokemonId");
+
                     b.HasIndex("TrainerPokemonId");
 
-                    b.ToTable("BaseAbilities");
-
-                    b.HasDiscriminator().HasValue("BaseAbility");
-
-                    b.UseTphMappingStrategy();
+                    b.ToTable("BattleTrainerPokemon");
                 });
 
             modelBuilder.Entity("PokemonLite.Domain.Entities.Pokemon", b =>
@@ -230,17 +281,11 @@ namespace PokemonLite.Persistance.Migrations
                     b.Property<int>("BaseAttack")
                         .HasColumnType("integer");
 
-                    b.Property<int>("BaseAttackSpeed")
-                        .HasColumnType("integer");
-
                     b.Property<int>("BaseDefense")
                         .HasColumnType("integer");
 
-                    b.Property<int>("BaseDefenseSpeed")
+                    b.Property<int>("BaseHp")
                         .HasColumnType("integer");
-
-                    b.Property<double>("BaseHp")
-                        .HasColumnType("double precision");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -269,12 +314,12 @@ namespace PokemonLite.Persistance.Migrations
                     b.Property<Guid>("TrainerPokemonId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("BaseAbilityId")
+                    b.Property<Guid>("AbilityId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("TrainerPokemonId", "BaseAbilityId");
+                    b.HasKey("TrainerPokemonId", "AbilityId");
 
-                    b.HasIndex("BaseAbilityId");
+                    b.HasIndex("AbilityId");
 
                     b.ToTable("PokemonAssignAbilities");
                 });
@@ -354,7 +399,8 @@ namespace PokemonLite.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Trainers");
                 });
@@ -368,8 +414,17 @@ namespace PokemonLite.Persistance.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<double>("CurrentHp")
-                        .HasColumnType("double precision");
+                    b.Property<int>("CurrentAttack")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CurrentDefense")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CurrentHp")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Exp")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -383,9 +438,6 @@ namespace PokemonLite.Persistance.Migrations
                     b.Property<string>("NickName")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("integer");
 
                     b.Property<Guid>("PokemonId")
                         .HasColumnType("uuid");
@@ -408,7 +460,7 @@ namespace PokemonLite.Persistance.Migrations
                     b.ToTable("TrainerPokemons");
                 });
 
-            modelBuilder.Entity("PokemonLite.Domain.Entities.User", b =>
+            modelBuilder.Entity("PokemonLite.Persistance.Implementations.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -462,7 +514,7 @@ namespace PokemonLite.Persistance.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime?>("UpdatedTime")
+                    b.Property<DateTime>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UserName")
@@ -507,7 +559,7 @@ namespace PokemonLite.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("integer[]");
 
-                    b.HasDiscriminator().HasValue("ActiveAbility");
+                    b.ToTable("ActiveAbilities", (string)null);
                 });
 
             modelBuilder.Entity("PokemonLite.Domain.Entities.PassiveAbility", b =>
@@ -525,7 +577,7 @@ namespace PokemonLite.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("integer[]");
 
-                    b.HasDiscriminator().HasValue("PassiveAbility");
+                    b.ToTable("PassiveAbilities", (string)null);
                 });
 
             modelBuilder.Entity("PokemonLite.Domain.Entities.StatusAbility", b =>
@@ -539,7 +591,22 @@ namespace PokemonLite.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("integer[]");
 
-                    b.HasDiscriminator().HasValue("StatusAbility");
+                    b.ToTable("StatusAbilities", (string)null);
+                });
+
+            modelBuilder.Entity("BaseAbilityTrainerPokemon", b =>
+                {
+                    b.HasOne("PokemonLite.Domain.Entities.BaseAbility", null)
+                        .WithMany()
+                        .HasForeignKey("AbilitiesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PokemonLite.Domain.Entities.TrainerPokemon", null)
+                        .WithMany()
+                        .HasForeignKey("PokemonsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -553,7 +620,7 @@ namespace PokemonLite.Persistance.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("PokemonLite.Domain.Entities.User", null)
+                    b.HasOne("PokemonLite.Persistance.Implementations.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -562,7 +629,7 @@ namespace PokemonLite.Persistance.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("PokemonLite.Domain.Entities.User", null)
+                    b.HasOne("PokemonLite.Persistance.Implementations.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -577,7 +644,7 @@ namespace PokemonLite.Persistance.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PokemonLite.Domain.Entities.User", null)
+                    b.HasOne("PokemonLite.Persistance.Implementations.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -586,14 +653,14 @@ namespace PokemonLite.Persistance.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("PokemonLite.Domain.Entities.User", null)
+                    b.HasOne("PokemonLite.Persistance.Implementations.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PokemonLite.Domain.Entities.AbilityLevels", b =>
+            modelBuilder.Entity("PokemonLite.Domain.Entities.AbilityLevel", b =>
                 {
                     b.HasOne("PokemonLite.Domain.Entities.BaseAbility", "BaseAbility")
                         .WithMany("AbilityLevels")
@@ -620,18 +687,51 @@ namespace PokemonLite.Persistance.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PokemonLite.Domain.Entities.TrainerPokemon", null)
-                        .WithMany("Abilities")
-                        .HasForeignKey("TrainerPokemonId");
-
                     b.Navigation("Specie");
+                });
+
+            modelBuilder.Entity("PokemonLite.Domain.Entities.Battle", b =>
+                {
+                    b.HasOne("PokemonLite.Domain.Entities.Trainer", "Creator")
+                        .WithMany("CreatedBattles")
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PokemonLite.Domain.Entities.Trainer", "Joiner")
+                        .WithMany("JoinedBattles")
+                        .HasForeignKey("JoinerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Creator");
+
+                    b.Navigation("Joiner");
+                });
+
+            modelBuilder.Entity("PokemonLite.Domain.Entities.BattleTrainerPokemon", b =>
+                {
+                    b.HasOne("PokemonLite.Domain.Entities.Battle", "Battle")
+                        .WithMany("Pokemons")
+                        .HasForeignKey("BattleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PokemonLite.Domain.Entities.TrainerPokemon", "TrainerPokemon")
+                        .WithMany("Battles")
+                        .HasForeignKey("TrainerPokemonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Battle");
+
+                    b.Navigation("TrainerPokemon");
                 });
 
             modelBuilder.Entity("PokemonLite.Domain.Entities.PokemonAssignAbility", b =>
                 {
-                    b.HasOne("PokemonLite.Domain.Entities.BaseAbility", "BaseAbility")
+                    b.HasOne("PokemonLite.Domain.Entities.BaseAbility", "Ability")
                         .WithMany()
-                        .HasForeignKey("BaseAbilityId")
+                        .HasForeignKey("AbilityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -641,7 +741,7 @@ namespace PokemonLite.Persistance.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BaseAbility");
+                    b.Navigation("Ability");
 
                     b.Navigation("TrainerPokemon");
                 });
@@ -667,9 +767,9 @@ namespace PokemonLite.Persistance.Migrations
 
             modelBuilder.Entity("PokemonLite.Domain.Entities.Trainer", b =>
                 {
-                    b.HasOne("PokemonLite.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                    b.HasOne("PokemonLite.Persistance.Implementations.User", "User")
+                        .WithOne("Trainer")
+                        .HasForeignKey("PokemonLite.Domain.Entities.Trainer", "UserId");
 
                     b.Navigation("User");
                 });
@@ -706,9 +806,41 @@ namespace PokemonLite.Persistance.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PokemonLite.Domain.Entities.ActiveAbility", b =>
+                {
+                    b.HasOne("PokemonLite.Domain.Entities.BaseAbility", null)
+                        .WithOne()
+                        .HasForeignKey("PokemonLite.Domain.Entities.ActiveAbility", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PokemonLite.Domain.Entities.PassiveAbility", b =>
+                {
+                    b.HasOne("PokemonLite.Domain.Entities.BaseAbility", null)
+                        .WithOne()
+                        .HasForeignKey("PokemonLite.Domain.Entities.PassiveAbility", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PokemonLite.Domain.Entities.StatusAbility", b =>
+                {
+                    b.HasOne("PokemonLite.Domain.Entities.BaseAbility", null)
+                        .WithOne()
+                        .HasForeignKey("PokemonLite.Domain.Entities.StatusAbility", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("PokemonLite.Domain.Entities.BaseAbility", b =>
                 {
                     b.Navigation("AbilityLevels");
+                });
+
+            modelBuilder.Entity("PokemonLite.Domain.Entities.Battle", b =>
+                {
+                    b.Navigation("Pokemons");
                 });
 
             modelBuilder.Entity("PokemonLite.Domain.Entities.Pokemon", b =>
@@ -718,14 +850,23 @@ namespace PokemonLite.Persistance.Migrations
 
             modelBuilder.Entity("PokemonLite.Domain.Entities.Trainer", b =>
                 {
+                    b.Navigation("CreatedBattles");
+
+                    b.Navigation("JoinedBattles");
+
                     b.Navigation("TrainerPokemons");
                 });
 
             modelBuilder.Entity("PokemonLite.Domain.Entities.TrainerPokemon", b =>
                 {
-                    b.Navigation("Abilities");
+                    b.Navigation("Battles");
 
                     b.Navigation("PokemonAssignAbilities");
+                });
+
+            modelBuilder.Entity("PokemonLite.Persistance.Implementations.User", b =>
+                {
+                    b.Navigation("Trainer");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,10 +12,12 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\PokemonLite.Application\PokemonLite.Application.csproj" />
       <ProjectReference Include="..\PokemonLite.Domain\PokemonLite.Domain.csproj" />
       <ProjectReference Include="..\PokemonLite.Persistance\PokemonLite.Persistance.csproj" />
     </ItemGroup>
