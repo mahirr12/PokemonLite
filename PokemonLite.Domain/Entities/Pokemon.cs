@@ -8,6 +8,7 @@ public class Pokemon : BaseEntity
     public int BaseHp { get; set; }
     public int BaseAttack { get; set; }
     public int BaseDefense { get; set; }
-    
+
+    public ICollection<AbilityLevel> AbilityLevels { get; set; } = [];
     public ICollection<TrainerPokemon> TrainerPokemons { get; set; } = [];
 }

@@ -26,8 +26,8 @@ public class CreatePokemonDTO
     public int BaseDefense { get; set; }
 
     [Required(ErrorMessage = "Specie1Id is required.")]
-    public Guid Specie1Id { get; set; }
+    public Guid MainSpecieId { get; set; }
 
 
-    public Guid Specie2Id { get; set; } = Guid.Empty;
+    public Guid? SecondarySpecieId { get; set; } 
 }

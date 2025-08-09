@@ -255,3 +255,7 @@
 /Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.API/bin/Debug/net8.0/PokemonLite.Contract.dll
 /Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.API/bin/Debug/net8.0/PokemonLite.Application.pdb
 /Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.API/bin/Debug/net8.0/PokemonLite.Contract.pdb
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.API/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.API/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.API/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/mahir/Documents/CodeAc/PokemonLite/PokemonLite.API/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll

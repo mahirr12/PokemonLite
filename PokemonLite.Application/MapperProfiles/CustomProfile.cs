@@ -1,5 +1,6 @@
 using AutoMapper;
 using PokemonLite.Contract.DTOs.Ability;
+using PokemonLite.Contract.DTOs.Battle;
 using PokemonLite.Contract.DTOs.Pokemon;
 using PokemonLite.Contract.DTOs.Specie;
 using PokemonLite.Contract.DTOs.SpecieEffectiveness;
@@ -21,7 +22,7 @@ public class CustomProfile : Profile
                     PokemonId = al.Key,
                     Level = al.Value
                 })));
-        
+
         // same mapping for all ability types
         CreateMap<CreateAbilityDTO, ActiveAbility>()
             .IncludeBase<CreateAbilityDTO, BaseAbility>();
@@ -34,8 +35,16 @@ public class CustomProfile : Profile
             .ForMember(dest => dest.Specie, opt => opt.MapFrom(src => src.Specie.Name))
             .ForMember(dest => dest.PokemonLevels,
                 opt => opt.MapFrom(src => src.AbilityLevels.ToDictionary(al => al.PokemonId, al => al.Level)));
-            
-            
+
+        // same mapping for all ability types
+        CreateMap<ActiveAbility, AbilityDTO>()
+            .IncludeBase<BaseAbility, AbilityDTO>();
+        CreateMap<PassiveAbility, AbilityDTO>()
+            .IncludeBase<BaseAbility, AbilityDTO>();
+        CreateMap<StatusAbility, AbilityDTO>()
+            .IncludeBase<BaseAbility, AbilityDTO>();
+
+
         //Specie
         CreateMap<CreateSpecieDTO, Specie>();
         CreateMap<Specie, SpecieDTO>()
@@ -51,11 +60,8 @@ public class CustomProfile : Profile
         //Pokemon
         CreateMap<CreatePokemonDTO, Pokemon>()
             .ForMember(dest => dest.Species,
-                opt => opt.MapFrom(src =>
-                    src.Specie2Id != Guid.Empty
-                        ? new List<Specie> { new() { Id = src.Specie1Id }, new() { Id = src.Specie2Id } }
-                        : new List<Specie> { new() { Id = src.Specie1Id } }
-                ));
+                opt => opt.Ignore());
+
         CreateMap<Pokemon, PokemonDTO>()
             .ForMember(dest => dest.Species,
                 opt => opt.MapFrom(src => src.Species.ToDictionary(s => s.Id, s => s.Name)));
@@ -82,5 +88,21 @@ public class CustomProfile : Profile
                     src.PokemonAssignAbilities.ToDictionary(pa => pa.AbilityId, pa => pa.Ability.Name)))
             .ForMember(dest => dest.BattleIds,
                 opt => opt.MapFrom(src => src.Battles.Select(btp => btp.BattleId).Distinct().ToList()));
+        
+        // Battle
+        CreateMap<CreateBattleDTO, Battle>()
+            .ForMember(dest => dest.Pokemons, opt => opt.Ignore());
+
+        CreateMap<Battle, BattleDTO>()
+            .ForMember(dest => dest.CreatorName,
+                opt => opt.MapFrom(src => src.Creator.Nickname))
+            .ForMember(dest => dest.JoinerName,
+                opt => opt.MapFrom(src => src.Joiner != null ? src.Joiner.Nickname : ""))
+            .ForMember(dest => dest.CreatorPokemons,
+                opt => opt.MapFrom(src => src.Pokemons
+                    .Where(p => p.IsCreatorPokemon).Select(p => p.TrainerPokemon).ToList()))
+            .ForMember(dest => dest.JoinerPokemons,
+                opt => opt.MapFrom(src => src.Pokemons
+                    .Where(p => !p.IsCreatorPokemon).Select(p => p.TrainerPokemon).ToList()));
     }
 }

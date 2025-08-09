@@ -45,6 +45,11 @@ public class PokemonDBContext(DbContextOptions<PokemonDBContext> options) : Iden
             .HasOne(al => al.BaseAbility)
             .WithMany(ba => ba.AbilityLevels)
             .HasForeignKey(al => al.BaseAbilityId);
+        
+        modelBuilder.Entity<AbilityLevel>()
+            .HasOne(al => al.Pokemon)
+            .WithMany(p => p.AbilityLevels)
+            .HasForeignKey(al => al.PokemonId);
 
         modelBuilder.Entity<Battle>()
             .HasOne(b => b.Creator)

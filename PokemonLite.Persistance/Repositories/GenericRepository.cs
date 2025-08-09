@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using PokemonLite.Domain.Entities;
 using PokemonLite.Domain.IRepositories;
@@ -11,20 +12,34 @@ public class GenericRepository<T>(PokemonDBContext context)
     private readonly PokemonDBContext _context = context;
     private readonly DbSet<T> _dbSet = context.Set<T>();
 
-    public async Task<T?> GetByIdAsync(Guid id)
-        => await _dbSet.FirstOrDefaultAsync(t => t.Id == id && !t.IsDeleted);
+    public async Task<T?> GetByIdAsync(Guid id, params Expression<Func<T, object>>[] includeProperties)
+    {
+        var query = _dbSet.AsQueryable();
+        foreach (var includeProperty in includeProperties)
+            query = query.Include(includeProperty);
+        return await query.FirstOrDefaultAsync(t => t.Id == id && !t.IsDeleted);
+    }
 
 
-    public IQueryable<T> GetAll()
-        => _dbSet.Where(t => !t.IsDeleted);
+    public IQueryable<T> GetAll(params Expression<Func<T, object>>[] includeProperties)
+    {
+        var query = _dbSet.Where(t => !t.IsDeleted);
+        foreach (var includeProperty in includeProperties)
+            query = query.Include(includeProperty);
+        return query;
+    }
 
 
     public async Task<T> AddAsync(T entity)
-        => (await _dbSet.AddAsync(entity)).Entity;
+    {
+        return (await _dbSet.AddAsync(entity)).Entity;
+    }
 
 
     public T Update(T entity)
-        => _dbSet.Update(entity).Entity;
+    {
+        return _dbSet.Update(entity).Entity;
+    }
 
     public async Task<bool> DeleteAsync(Guid id)
     {

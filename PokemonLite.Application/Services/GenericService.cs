@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PokemonLite.Contract.IServices;
@@ -7,7 +8,7 @@ using PokemonLite.Domain.IRepositories;
 namespace PokemonLite.Application.Services;
 
 public class GenericService<T, CreateTDto, TDto>(
-    IMapper mapper, 
+    IMapper mapper,
     IGenericRepository<T> repository,
     IUnitOfWork unitOfWork)
     : IGenericService<T, CreateTDto, TDto>
@@ -15,16 +16,16 @@ public class GenericService<T, CreateTDto, TDto>(
     where CreateTDto : class
     where TDto : class
 {
-    public async Task<TDto?> GetByIdAsync(Guid id)
+    public async Task<TDto?> GetByIdAsync(Guid id, params Expression<Func<T, object>>[] includeProperties)
     {
-        var data = await repository.GetByIdAsync(id);
+        var data = await repository.GetByIdAsync(id, includeProperties);
         var dto = mapper.Map<TDto>(data);
         return dto;
     }
 
-    public async Task<IEnumerable<TDto>> GetAllAsync()
+    public async Task<IEnumerable<TDto>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties)
     {
-        var datas = await repository.GetAll().ToListAsync();
+        var datas = await repository.GetAll(includeProperties).ToListAsync();
         var dtos = mapper.Map<IEnumerable<TDto>>(datas);
         return dtos;
     }

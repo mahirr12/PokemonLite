@@ -1,5 +1,7 @@
+using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using PokemonLite.Application.MapperProfiles;
 using PokemonLite.Application.Services;
 using PokemonLite.Contract.IServices;
@@ -37,10 +39,35 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     .AddEntityFrameworkStores<PokemonDBContext>()
     .AddDefaultTokenProviders();
 
+var jwtKey = builder.Configuration["Jwt:Key"];
+var jwtIssuer = builder.Configuration["Jwt:Issuer"];
+
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = "JwtBearer";
+        options.DefaultChallengeScheme = "JwtBearer";
+    })
+    .AddJwtBearer("JwtBearer", options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtIssuer,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+            ClockSkew = TimeSpan.Zero
+        };
+    });
 // Add services to the container for dependency injection.
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IGenericService<,,>), typeof(GenericService<,,>));
 builder.Services.AddScoped<IAbilityService, AbilityService>();
+builder.Services.AddScoped<ISpecieEffectivenessRepository, SpecieEffectivenessRepository>();
+builder.Services.AddScoped<ISpecieEffectivenessService, SpecieEffectivenessService>();
+builder.Services.AddScoped<IPokemonService, PokemonService>();
+builder.Services.AddScoped<ITrainerPokemonService, TrainerPokemonService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //automapper
@@ -57,6 +84,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

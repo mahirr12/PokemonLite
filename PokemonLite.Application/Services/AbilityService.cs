@@ -23,9 +23,34 @@ public class AbilityService(
         };
         if (baseAbility == null)
             throw new ArgumentException("Invalid ability type provided.");
+        foreach (var al in baseAbility.AbilityLevels)
+        {
+            al.BaseAbilityId = baseAbility.Id;
+        }
         var addedEntity = await repository.AddAsync(baseAbility);
         var addedDto = mapper.Map<AbilityDTO>(addedEntity);
         await unitOfWork.SaveChangesAsync();
         return addedDto;
+    }
+    
+    public new async Task<AbilityDTO> UpdateAsync(CreateAbilityDTO updateAbilityDto)
+    {
+        BaseAbility? baseAbility = updateAbilityDto.AbilityType switch
+        {
+            AbilityType.Active => mapper.Map<ActiveAbility>(updateAbilityDto),
+            AbilityType.Passive => mapper.Map<PassiveAbility>(updateAbilityDto),
+            AbilityType.Status => mapper.Map<StatusAbility>(updateAbilityDto),
+            _ => null
+        };
+        if (baseAbility == null)
+            throw new ArgumentException("Invalid ability type provided.");
+        foreach (var al in baseAbility.AbilityLevels)
+        {
+            al.BaseAbilityId = baseAbility.Id;
+        }
+        var updatedEntity =  repository.Update(baseAbility);
+        var updatedDto = mapper.Map<AbilityDTO>(updatedEntity);
+        await unitOfWork.SaveChangesAsync();
+        return updatedDto;
     }
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PokemonLite.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+09a5a5e2be9047cea613e7d8e6c7f9a11c28a005")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a12e6b64b9c2e7fed398d54a01431c5a3a436e74")]
 [assembly: System.Reflection.AssemblyProductAttribute("PokemonLite.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PokemonLite.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

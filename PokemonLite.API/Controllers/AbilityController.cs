@@ -12,7 +12,10 @@ public class AbilityController(
     [HttpGet("{id}")]
     public async Task<IActionResult> GetByIdAsync(Guid id)
     {
-        var ability = await abilityService.GetByIdAsync(id);
+        var ability = await abilityService.GetByIdAsync(
+            id,
+            ba => ba.AbilityLevels,
+            ba => ba.Specie);
         if (ability == null) return NotFound();
         return Ok(ability);
     }
@@ -20,7 +23,10 @@ public class AbilityController(
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {
-        var abilities = await abilityService.GetAllAsync();
+        var abilities = await abilityService.GetAllAsync(
+            ba => ba.AbilityLevels,
+            ba => ba.Specie);
+        
         return Ok(abilities);
     }
 
